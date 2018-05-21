@@ -11,4 +11,8 @@ export class SearchVehicleService {
   public searchVehicle(licencePlate: string) {
     return this.http.get<any>("http://localhost:8080/searchVehicle?licencePlate="+licencePlate);
   }
+
+  public vehiclesParked() {
+    return this.http.get<any>("http://localhost:8080/vehiclesParked");
+  }
 }

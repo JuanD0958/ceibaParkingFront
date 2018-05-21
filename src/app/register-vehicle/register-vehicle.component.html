@@ -102,5 +102,12 @@
           <div class="alert alert-success" role="alert" *ngIf="paid">
               {{message}}
           </div>
-      </ng-template>
+      </ng-template>      
     </ngb-tab>
+    <ngb-tab title="Retirar vehiculo">
+        <ng-template ngbTabContent>
+            <h1 align="center" style="margin: 3%">VEHICULOS PARQUEADOS</h1>
+            {{vehiclesParkedNow}}
+        </ng-template>
+      </ngb-tab>
+    </ngb-tabset>

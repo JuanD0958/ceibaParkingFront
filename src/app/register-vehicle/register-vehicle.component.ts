@@ -28,7 +28,9 @@ export class RegisterVehicleComponent implements OnInit {
   private errorResponseRegister:boolean;
   private errorResponseSearch:boolean;
   private vehicleFound:VehicleSearchResult;
+  private vehiclesParkedNow:VehicleSearchResult[];
   private showInvoice:boolean;
+  private showListVehiclesParkes:boolean;
   private paid:boolean;
 
   constructor(private registerVehicleService:RegisterVehicleService, 
@@ -109,5 +111,20 @@ export class RegisterVehicleComponent implements OnInit {
     this.errorResponseSearch = true;
     this.message =  err.error;
   });
+  }
+
+  public searchVehiclesParked(){    
+    this.vehicleFound = null; 
+    this.showInvoice = null; 
+    this.paid = false;
+    this.searchVehicleService.vehiclesParked().subscribe(res =>{
+      this.errorResponseSearch = false;
+      this.vehiclesParkedNow = res;
+    },
+    err =>{
+      this.paid = false;
+      this.errorResponseSearch = true;
+      this.message =  err.error;
+    });    
   }
 }
