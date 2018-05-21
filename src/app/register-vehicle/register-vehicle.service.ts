@@ -21,11 +21,7 @@ export class RegisterVehicleService {
     let headers = new HttpHeaders().set('Content-Type','application/json');
     console.log(JSON.stringify(request));
     return this.http.post<TicketModel>("http://localhost:8080/registerVehicle", JSON.stringify(request), {headers:headers});
-  }
-
-  public searchVehicle(request: RequestRegisterVehicle) {
-  
-  }
+  } 
 
   public validate(request: RequestRegisterVehicle): boolean {
     let isValid = true;

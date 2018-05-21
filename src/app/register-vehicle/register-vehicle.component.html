@@ -1,22 +1,14 @@
 <div class="container">
   <ngb-tabset>
-    <ngb-tab title="Ingreso de vehiculos">
+    <ngb-tab title="Ingresar de vehiculos">
       <ng-template ngbTabContent>
         <div class="container" style="text-align: center">
           <h1 align="center" style="margin: 3%">INGRESAR VEHICULO</h1>
           <div class="alert alert-danger" role="alert" *ngIf="!isValid">
             {{message}}
-          </div>
-          <div class="alert alert-danger" role="alert" *ngIf="errorResponse">
-              {{message}}
-          </div>
+          </div>          
           <div class="alert alert-success" role="alert" *ngIf="isSuccess">
-            <p>
-                Placa:{{ticket.licencePlate}}
-            </p>
-            <p>
-                Hora inicio:{{startHour}}
-            </p>  
+            <p><b>Exitoso</b>, vehiculo con placa {{ticket.licencePlate}} registrado a las {{ticket.startTime| date:'dd/MM/yyyy hh:mm:ss'}}</p> 
           </div>
           <form name="ingresarVehiculoForm" id="ingresarVehiculoForm" #ingresarVehiculoForm="ngForm">
             <div class="form-group">
@@ -35,6 +27,80 @@
               <label for="cc">CILINDRAJE VEHICULO:</label>
               <input type="number" [(ngModel)]="cubicCentimeters" name="cc" class="form-control" id="cc" required>
             </div>
-            <button (click)="registerVehicle()" class="btn btn-success" style="margin: 3%">Registrar Vehiculo</button>
+            <button (click)="registerVehicle()" class="btn btn-primary" style="margin: 3%">Registrar Vehiculo</button>
           </form>
         </div>
+        <div class="alert alert-danger" role="alert" *ngIf="errorResponseRegister">
+            {{message}}
+        </div>
+      </ng-template>
+    </ngb-tab>
+
+    <ngb-tab title="Retirar vehiculo">
+      <ng-template ngbTabContent>
+          <h1 align="center" style="margin: 3%">BUSCAR VEHICULO</h1>
+          <form name="buscarVehiculoForm" id="buscarVehiculoForm" #ingresarVehiculoForm="ngForm">
+              <div class="form-group">
+                <label for="placaIngreso">PLACA VEHICULO A BUSCAR:</label>
+                <input type="text" [(ngModel)]="licencePlate" name="plate" class="form-control" id="placaIngreso" required>
+              </div>
+              <button (click)="searchVehicle(licencePlate)" class="btn btn-primary" style="margin: 3%">Buscar Vehiculo</button>
+          </form>
+          <form name="retirarVehiculoForm" id="retirarVehiculoForm" #ingresarVehiculoForm="ngForm">
+          <div *ngIf="vehicleFound!=null">
+          <table class="table">
+              <thead>
+                <tr>
+                  <th>Placa vehiculo</th>
+                  <th>Tipo vehiculo</th>
+                  <th>Hora de ingreso</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>{{vehicleFound.licencePlate}}</td>
+                  <td>{{vehicleFound.typeVehicle}}</td>
+                  <td>{{vehicleFound.starDate| date:'dd/MM/yyyy hh:mm:ss'}}</td>
+                  <td><button (click)="retireVehicle()" class="btn btn-primary" style="margin: 3%">Solicitar retiro</button></td>
+                </tr>
+                <tr>
+              </tr>
+            </tbody>
+          </table>
+          </div>
+        </form>
+          <div class="alert alert-danger" role="alert" *ngIf="errorResponseSearch">
+              {{message}}
+          </div>
+          <div *ngIf="showInvoice">
+              <table class="table">
+                  <thead>
+                    <tr>
+                      <th>Número de ticket</th>
+                      <th>Placa vehiculo</th>
+                      <th>Tipo vehiculo</th>
+                      <th>Hora de ingreso</th>
+                      <th>Costo total</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>{{ticket.ticketNumber}}</td>
+                      <td>{{ticket.licencePlate}}</td>
+                      <td>{{ticket.typeVehicle}}</td>
+                      <td>{{ticket.startTime| date:'dd/MM/yyyy hh:mm:ss'}}</td>
+                      <td>{{ticket.costParking}}</td>
+                      <td><button (click)="payParking(ticket)" class="btn btn-success" style="margin: 3%">Pagar y Retirar</button></td>
+                    </tr>
+                    <tr>
+                  </tr>
+                </tbody>
+              </table>
+          </div>
+          <div class="alert alert-success" role="alert" *ngIf="paid">
+              {{message}}
+          </div>
+      </ng-template>
+    </ngb-tab>
