@@ -40,8 +40,7 @@ export class RegisterVehicleComponent implements OnInit {
     this.requestRetireModel = new RequestRetireModel();
   }
  
-  ngOnInit() {  
-    this.paid = false; 
+  ngOnInit() {     
   }
 
   public registerVehicle():void{
@@ -57,7 +56,7 @@ export class RegisterVehicleComponent implements OnInit {
       this.isSuccess = true;
       this.paid = false;
       this.errorResponseRegister = false;
-      this.ticket = res;   
+      this.ticket = res;  
     },
    err =>{
     this.paid = false;
@@ -105,7 +104,7 @@ export class RegisterVehicleComponent implements OnInit {
   public payParking(ticket:TicketModel):void{
     this.retireVehicleService.payParking(ticket).subscribe(res =>{
     this.paid = true;
-     this.message = "Pago exitoso!"
+     this.message = "Pago exitoso!"    
     },
   err=>{
     this.errorResponseSearch = true;

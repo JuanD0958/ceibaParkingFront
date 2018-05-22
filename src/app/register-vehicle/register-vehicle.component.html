@@ -1,5 +1,5 @@
 <div class="container">
-  <ngb-tabset>
+  <ngb-tabset (tabChange)="searchVehiclesParked()">
     <ngb-tab title="Ingresar de vehiculos">
       <ng-template ngbTabContent>
         <div class="container" style="text-align: center">
@@ -104,10 +104,26 @@
           </div>
       </ng-template>      
     </ngb-tab>
-    <ngb-tab title="Retirar vehiculo">
+    <ngb-tab title="Mostrar vehiculos" >
         <ng-template ngbTabContent>
             <h1 align="center" style="margin: 3%">VEHICULOS PARQUEADOS</h1>
-            {{vehiclesParkedNow}}
+            <table class="table">
+            <thead>
+              <tr>
+                <th>Placa vehiculo</th>
+                <th>Tipo vehiculo</th>
+                <th>Hora de ingreso</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let vehiclesParked of vehiclesParkedNow">
+              <td>{{vehiclesParked.licencePlate}}</td>
+              <td>{{vehiclesParked.typeVehicle}}</td>
+              <td>{{vehiclesParked.starDate| date:'dd/MM/yyyy hh:mm:ss'}}</td>
+            </tr>
+            </tbody>
+          </table>         
         </ng-template>
       </ngb-tab>
     </ngb-tabset>

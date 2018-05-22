@@ -7,12 +7,10 @@ import { RegisterVehicleComponent } from './register-vehicle/register-vehicle.co
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { SearchVehicleComponent } from './search-vehicle/search-vehicle.component'
 @NgModule({
   declarations: [
     AppComponent,
     RegisterVehicleComponent,
-    SearchVehicleComponent
   ],
   imports: [
     BrowserModule,
