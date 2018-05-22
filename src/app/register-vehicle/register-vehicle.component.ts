@@ -7,6 +7,8 @@ import { TicketModel } from '../model/TicketModel';
 import { RequestRetireModel } from '../model/RequestRetireModel';
 import { VehicleSearchResult } from '../model/VehicleSearchResult'
 import { RetireVehicleService } from './retire-vehicle.service';
+import { QueryTrmService } from './query-trm.service';
+import { TrmModel } from '../model/trmModel';
 
 @Component({
   selector: 'app-register-vehicle',
@@ -32,15 +34,20 @@ export class RegisterVehicleComponent implements OnInit {
   private showInvoice:boolean;
   private showListVehiclesParkes:boolean;
   private paid:boolean;
+  private trm:TrmModel;
 
   constructor(private registerVehicleService:RegisterVehicleService, 
     private searchVehicleService:SearchVehicleService,
-    private retireVehicleService:RetireVehicleService) { 
+    private retireVehicleService:RetireVehicleService,
+    private queryTrmService:QueryTrmService) { 
     this.requestRegisterVehicle = new RequestRegisterVehicle();
     this.requestRetireModel = new RequestRetireModel();
   }
  
-  ngOnInit() {     
+  ngOnInit() {
+    /* Se inicializa la variable para no generar error mientras se consulta el trm y se asigna. */
+    this.trm = new TrmModel();
+    this.queryTrm();     
   }
 
   public registerVehicle():void{
@@ -123,6 +130,15 @@ export class RegisterVehicleComponent implements OnInit {
     err =>{
       this.paid = false;
       this.errorResponseSearch = true;
+      this.message =  err.error;
+    });    
+  }
+
+  public queryTrm():void{
+    this.queryTrmService.queryTrm().subscribe(res =>{
+      this.trm = res;
+    },
+    err =>{
       this.message =  err.error;
     });    
   }
